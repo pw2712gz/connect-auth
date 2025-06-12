@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Connect Auth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen px-4 py-10">
+<div class="max-w-3xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+        <a href="/logout"
+           class="text-sm font-medium bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+            Logout
+        </a>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-2">
+            Welcome, <span th:text="${name}">User</span> 🎉
+        </h2>
+        <p class="text-gray-400 text-sm">
+            Email: <span th:text="${email}">user@example.com</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
