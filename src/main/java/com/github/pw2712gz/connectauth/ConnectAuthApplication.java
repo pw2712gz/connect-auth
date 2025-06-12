@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ConnectAuthApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConnectAuthApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ConnectAuthApplication.class, args);
+    }
 
 }

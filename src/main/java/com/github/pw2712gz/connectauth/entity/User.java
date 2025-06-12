@@ -2,6 +2,7 @@ package com.github.pw2712gz.connectauth.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.Instant;
 
 @Entity
