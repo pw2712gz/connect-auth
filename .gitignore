@@ -33,5 +33,8 @@ build/
 .vscode/
 
 .env
-### Frontend ###
+
+# Frontend build
 /src/main/frontend/node_modules/
+/src/main/resources/static/main.css
+
