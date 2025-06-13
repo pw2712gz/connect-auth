@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | Connect Auth</title>
-    <link th:href="@{/main.css}" rel="stylesheet" />
+
+    <!-- Link to your Tailwind-generated CSS -->
+    <link rel="stylesheet" th:href="@{/main.css}" />
 </head>
 <body class="bg-gray-950 text-white flex items-center justify-center min-h-screen px-4">
 <div class="max-w-md w-full p-8 bg-gray-900 rounded-xl shadow-lg border border-gray-800 space-y-6">
@@ -13,10 +15,14 @@
         <p class="text-sm text-gray-400">Login securely using your Google account</p>
     </div>
 
-    <a class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition"
-       href="/oauth2/authorization/google">
+    <a
+            class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition"
+            href="/oauth2/authorization/google"
+    >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 488 512">
-            <path d="M488 261.8C488 403.3 391.1 504 248.3 504 110.9 504 8 401.6 8 264S110.9 24 248.3 24c66.8 0 122.5 24.6 164.5 64.8l-66.7 64.5c-18-17.3-48.6-37.5-97.8-37.5-83.4 0-151.2 69.7-151.2 155.7s67.8 155.7 151.2 155.7c96.4 0 132.3-69.2 137.9-105H248.3v-84.3h239.7c2.2 13 4 25.8 4 42.3z"/>
+            <path
+                    d="M488 261.8C488 403.3 391.1 504 248.3 504 110.9 504 8 401.6 8 264S110.9 24 248.3 24c66.8 0 122.5 24.6 164.5 64.8l-66.7 64.5c-18-17.3-48.6-37.5-97.8-37.5-83.4 0-151.2 69.7-151.2 155.7s67.8 155.7 151.2 155.7c96.4 0 132.3-69.2 137.9-105H248.3v-84.3h239.7c2.2 13 4 25.8 4 42.3z"
+            />
         </svg>
         Continue with Google
     </a>

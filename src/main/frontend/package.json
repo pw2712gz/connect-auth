@@ -1,19 +1,19 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "Spring Boot + Thymeleaf + Tailwind CSS",
+  "main": "index.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./styles.css -o ../resources/static/main.css",
-    "watch": "npx tailwindcss --watch -i ./styles.css -o ../resources/static/main.css"
+    "build": "postcss styles.css -o ../resources/static/main.css"
   },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "private": true,
+  "type": "commonjs",
+  "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.5",
-    "tailwindcss": "^4.1.10"
-  },
-  "dependencies": {
-    "@tailwindcss/cli": "^4.1.10"
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^3.4.17"
   }
 }
