@@ -27,7 +27,13 @@
     </a>
 
     <p class="text-green-400 text-sm text-center" th:if="${param.logout}">
-        You've been logged out.
+        You’ve been logged out.
+    </p>
+    <p class="text-red-400 text-sm text-center" th:if="${param.error}">
+        Login failed. Please try again.
+    </p>
+    <p class="text-yellow-400 text-sm text-center" th:if="${param.session}">
+        Session expired. Please log in again.
     </p>
 </div>
 </body>

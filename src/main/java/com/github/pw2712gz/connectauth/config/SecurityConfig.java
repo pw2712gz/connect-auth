@@ -35,7 +35,13 @@ public class SecurityConfig {
                         .successHandler(oAuth2LoginSuccessHandler)
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/logout-success").permitAll()
+                        .logoutSuccessUrl("/logout-success")
+                        .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendRedirect("/login?session")
+                        )
                 );
 
         return http.build();
