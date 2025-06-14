@@ -24,16 +24,21 @@ public class User {
 
     private String lastName;
 
+    private String avatarUrl;
+
     private boolean enabled;
 
     private Instant createdAt;
 
     private Instant updatedAt;
 
+    private Instant lastLogin;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = Instant.now();
         this.updatedAt = this.createdAt;
+        this.lastLogin = this.createdAt;
     }
 
     @PreUpdate

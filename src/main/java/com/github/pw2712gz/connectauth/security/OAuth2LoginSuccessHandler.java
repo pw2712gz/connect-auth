@@ -34,19 +34,24 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String email = (String) attributes.get("email");
         String firstName = (String) attributes.getOrDefault("given_name", "Unknown");
         String lastName = (String) attributes.getOrDefault("family_name", "");
+        String picture = (String) attributes.getOrDefault("picture", null);
 
         User user = userRepository.findByEmail(email)
                 .map(existing -> {
                     existing.setFirstName(firstName);
                     existing.setLastName(lastName);
+                    existing.setAvatarUrl(picture);
+                    existing.setLastLogin(Instant.now());
                     return existing;
                 })
                 .orElseGet(() -> User.builder()
                         .email(email)
                         .firstName(firstName)
                         .lastName(lastName)
+                        .avatarUrl(picture)
                         .enabled(true)
                         .createdAt(Instant.now())
+                        .lastLogin(Instant.now())
                         .build()
                 );
 
@@ -56,3 +61,4 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.sendRedirect("/dashboard");
     }
 }
+

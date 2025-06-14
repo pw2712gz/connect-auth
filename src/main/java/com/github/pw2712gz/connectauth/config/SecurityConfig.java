@@ -19,7 +19,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/logout-success",
+                                "/main.css",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -27,7 +35,7 @@ public class SecurityConfig {
                         .successHandler(oAuth2LoginSuccessHandler)
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout").permitAll()
+                        .logoutSuccessUrl("/logout-success").permitAll()
                 );
 
         return http.build();

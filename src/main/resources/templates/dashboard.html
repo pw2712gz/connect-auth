@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Dashboard | Connect Auth</title>
-
-    <link rel="stylesheet" href="/main.css" />
-
+    <link href="/main.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-950 text-white min-h-screen px-4 py-10">
 <div class="max-w-3xl mx-auto space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-gray-800 pb-4">
         <h1 class="text-2xl font-bold">Dashboard</h1>
-        <a
-                href="/logout"
-                class="text-sm font-medium bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition"
-        >
+        <a class="text-sm font-medium bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition"
+           href="/logout">
             Logout
         </a>
     </div>
 
-    <!-- Welcome Message -->
-    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 class="text-xl font-semibold mb-2">
-            Welcome, <span th:text="${name}">User</span> 🎉
-        </h2>
-        <p class="text-gray-400 text-sm">
-            Email: <span th:text="${email}">user@example.com</span>
-        </p>
+    <!-- Profile Card -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex gap-6 items-center">
+        <!-- Avatar -->
+        <div>
+            <img alt="User Avatar" class="w-20 h-20 rounded-full border border-gray-700" th:if="${avatarUrl}"
+                 th:src="${avatarUrl}"/>
+            <div class="w-20 h-20 rounded-full bg-green-700 flex items-center justify-center text-white text-xl font-bold"
+                 th:if="${avatarUrl == null}">
+                <span th:text="${name.substring(0,1)}">U</span>
+            </div>
+        </div>
+
+        <!-- Info -->
+        <div>
+            <h2 class="text-xl font-semibold mb-1">
+                <span th:text="${name}">User Name</span>
+            </h2>
+            <p class="text-gray-400 text-sm mb-1">
+                Email: <span th:text="${email}">user@example.com</span>
+            </p>
+            <p class="text-gray-500 text-xs">
+                Created: <span th:text="${#dates.format(createdAt, 'MMM dd, yyyy HH:mm')}">N/A</span>
+            </p>
+            <p class="text-gray-500 text-xs">
+                Last Login: <span th:text="${#dates.format(lastLogin, 'MMM dd, yyyy HH:mm')}"
+                                  th:unless="${lastLogin == null}">N/A</span>
+            </p>
+        </div>
     </div>
 </div>
 </body>
