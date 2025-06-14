@@ -20,7 +20,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String root() {
-        return "redirect:/dashboard";
+        // 👇 Redirect to /login instead of /dashboard
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -63,4 +64,5 @@ public class HomeController {
     public String logoutSuccess() {
         return "redirect:/login?logout";
     }
+
 }

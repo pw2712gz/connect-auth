@@ -5,27 +5,49 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Login | Connect Auth</title>
 
+    <!-- Tailwind CSS -->
     <link href="/main.css" rel="stylesheet"/>
+
+    <!-- Favicon -->
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 </head>
 <body class="bg-gray-950 text-white flex items-center justify-center min-h-screen px-4">
 <div class="max-w-md w-full p-8 bg-gray-900 rounded-xl shadow-lg border border-gray-800 space-y-6">
-    <div class="text-center space-y-2">
-        <h1 class="text-2xl font-bold tracking-tight">Welcome to Connect Auth</h1>
-        <p class="text-sm text-gray-400">Login securely using your Google account</p>
+
+    <!-- Favicon as Logo -->
+    <div class="flex justify-center">
+        <img alt="Connect Auth Logo" class="w-12 h-12" src="/favicon.ico"/>
     </div>
 
+    <!-- Title -->
+    <div class="text-center space-y-2">
+        <h1 class="text-2xl font-bold tracking-tight">Welcome to Connect Auth</h1>
+        <p class="text-sm text-gray-400">Login securely using your Google or GitHub account</p>
+    </div>
+
+    <!-- Google Login Button -->
     <a
             class="w-full inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition"
             href="/oauth2/authorization/google"
     >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 488 512">
-            <path
-                    d="M488 261.8C488 403.3 391.1 504 248.3 504 110.9 504 8 401.6 8 264S110.9 24 248.3 24c66.8 0 122.5 24.6 164.5 64.8l-66.7 64.5c-18-17.3-48.6-37.5-97.8-37.5-83.4 0-151.2 69.7-151.2 155.7s67.8 155.7 151.2 155.7c96.4 0 132.3-69.2 137.9-105H248.3v-84.3h239.7c2.2 13 4 25.8 4 42.3z"
-            />
+            <path d="M488 261.8C488 403.3 391.1 504 248.3 504C110.9 504 8 401.6 8 264S110.9 24 248.3 24c66.8 0 122.5 24.6 164.5 64.8l-66.7 64.5c-18-17.3-48.6-37.5-97.8-37.5C165 116.8 97.2 186.5 97.2 272.5s67.8 155.7 151.2 155.7c96.4 0 132.3-69.2 137.9-105H248.3v-84.3h239.7c2.2 13 4 25.8 4 42.3z"/>
         </svg>
         Continue with Google
     </a>
 
+    <!-- GitHub Login Button -->
+    <a
+            class="w-full inline-flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg transition"
+            href="/oauth2/authorization/github"
+    >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.94.58.1.79-.25.79-.56v-2.03c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.27-1.7-1.27-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.68 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.3-5.23-1.28-5.23-5.69 0-1.26.45-2.3 1.18-3.11-.12-.3-.51-1.5.11-3.12 0 0 .97-.31 3.18 1.18.92-.26 1.9-.39 2.87-.39s1.95.13 2.87.39c2.21-1.5 3.18-1.18 3.18-1.18.62 1.62.23 2.82.11 3.12.73.81 1.18 1.85 1.18 3.11 0 4.42-2.68 5.39-5.24 5.68.42.37.77 1.1.77 2.21v3.28c0 .31.21.66.8.55C20.71 21.39 24 17.09 24 12 24 5.73 18.77.5 12 .5z"/>
+        </svg>
+        Continue with GitHub
+    </a>
+
+    <!-- Messages -->
     <p class="text-green-400 text-sm text-center" th:if="${param.logout}">
         You’ve been logged out.
     </p>
