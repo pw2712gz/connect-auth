@@ -25,14 +25,22 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, HttpServletRequest request) {
+    public String login(Model model, HttpServletRequest request, @AuthenticationPrincipal OAuth2User principal) {
+        if (principal != null) {
+            log.debug("🔄 User already authenticated. Redirecting to dashboard.");
+            return "redirect:/dashboard";
+        }
+
         if (request.getParameter("logout") != null) {
             model.addAttribute("message", "You’ve been logged out.");
         } else if (request.getParameter("error") != null) {
             model.addAttribute("message", "Login failed. Please try again.");
         } else if (request.getParameter("session") != null) {
             model.addAttribute("message", "Your session has expired. Please log in again.");
+        } else if (request.getParameter("unauthorized") != null) {
+            model.addAttribute("message", "You must log in to access that page.");
         }
+
         return "login";
     }
 

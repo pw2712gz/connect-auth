@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -48,8 +50,17 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {
-                            log.warn("⚠️ Unauthorized access or session expired. Redirecting to login.");
-                            response.sendRedirect("/login?session");
+                            String path = request.getRequestURI();
+                            log.warn("⚠️ Unauthorized access to '{}'", path);
+
+                            if (!path.equals("/dashboard") && !path.startsWith("/oauth2")) {
+                                // Likely a bad URL — send 404
+                                log.info("🛑 Unknown path '{}': sending 404", path);
+                                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                            } else {
+                                // Valid protected route — redirect to log in
+                                response.sendRedirect("/login?unauthorized");
+                            }
                         })
                 );
 
