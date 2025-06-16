@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Map;
 
+/**
+ * Custom handler for successful OAuth2 logins.
+ * Creates or updates the authenticated user in the database
+ * and redirects to the dashboard.
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -47,6 +52,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String lastName;
         String picture;
 
+        // Extract user info depending on OAuth2 provider
         if ("github".equals(registrationId)) {
             String name = (String) attributes.get("name");
             if (name == null || name.isBlank()) {
@@ -65,6 +71,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             picture = (String) attributes.get("picture");
         }
 
+        // Save or update user
         User user = userRepository.findByEmail(email)
                 .map(existing -> {
                     existing.setFirstName(firstName);

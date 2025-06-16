@@ -3,15 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Error | Connect Auth</title>
-    <link rel="stylesheet" href="/main.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/main.css" rel="stylesheet">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body class="bg-gray-950 text-white flex items-center justify-center min-h-screen px-4">
-<div class="text-center space-y-4">
-    <h1 class="text-4xl font-bold text-red-500">Oops!</h1>
-    <p class="text-gray-300 text-lg">We couldn’t find the page you were looking for.</p>
-    <a href="/dashboard"
-       class="inline-block mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
-        Back to Dashboard
+<div class="text-center space-y-6 max-w-md w-full">
+
+    <!-- Icon -->
+    <div class="text-red-500 text-6xl">🚫</div>
+
+    <!-- Heading -->
+    <h1 class="text-3xl sm:text-4xl font-bold">Oops! Page Not Found</h1>
+
+    <!-- Message -->
+    <p class="text-gray-400 text-base sm:text-lg">
+        The page you’re looking for doesn’t exist or has been moved.
+    </p>
+
+    <!-- CTA -->
+    <a
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-green-600 hover:bg-green-700 transition-colors border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-950"
+            href="/dashboard"
+    >
+        ← Back to Dashboard
     </a>
 </div>
 </body>

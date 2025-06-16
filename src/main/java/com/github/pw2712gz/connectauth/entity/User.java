@@ -5,6 +5,10 @@ import lombok.*;
 
 import java.time.Instant;
 
+/**
+ * Represents a user authenticated via OAuth2 (GitHub, Google, etc.).
+ * Stores profile info and login metadata.
+ */
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Getter
@@ -26,6 +30,10 @@ public class User {
 
     private String avatarUrl;
 
+    /**
+     * Whether the user is active in the system.
+     * Currently always true after login.
+     */
     private boolean enabled;
 
     private Instant createdAt;

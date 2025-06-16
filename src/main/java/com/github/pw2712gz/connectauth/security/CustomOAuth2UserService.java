@@ -17,6 +17,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Custom OAuth2 user service that enriches the user info
+ * by fetching the verified primary email from GitHub's API.
+ * This ensures the 'email' attribute is always available.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -60,7 +65,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 }
         );
 
-        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            log.error("[GitHub] Failed to fetch email: status {}", response.getStatusCode());
+            return null;
+        }
+
+        if (response.getBody() != null) {
             for (Map<String, Object> emailEntry : response.getBody()) {
                 Boolean primary = (Boolean) emailEntry.get("primary");
                 Boolean verified = (Boolean) emailEntry.get("verified");

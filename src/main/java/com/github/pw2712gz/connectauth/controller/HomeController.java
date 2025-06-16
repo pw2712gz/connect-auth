@@ -11,6 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Handles primary web endpoints:
+ * - Root redirect
+ * - Login display with contextual messages
+ * - Authenticated dashboard view
+ * - Logout redirect
+ */
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -20,13 +27,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String root() {
-        // 👇 Redirect to /login instead of /dashboard
+        // Redirect root to login page
         return "redirect:/login";
     }
 
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request, @AuthenticationPrincipal OAuth2User principal) {
         if (principal != null) {
+            // If already logged in, redirect to dashboard
             log.debug("🔄 User already authenticated. Redirecting to dashboard.");
             return "redirect:/dashboard";
         }
@@ -52,8 +60,12 @@ public class HomeController {
         }
 
         String email = principal.getAttribute("email");
-        User user = userRepository.findByEmail(email).orElse(null);
+        if (email == null) {
+            log.error("Authenticated user has no email attribute");
+            return "redirect:/login?error";
+        }
 
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user != null) {
             model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
             model.addAttribute("email", user.getEmail());
@@ -72,5 +84,4 @@ public class HomeController {
     public String logoutSuccess() {
         return "redirect:/login?logout";
     }
-
 }

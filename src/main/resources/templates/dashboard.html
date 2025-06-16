@@ -9,57 +9,68 @@
 </head>
 <body class="bg-gray-950 text-white min-h-screen px-4 py-10">
 <div class="max-w-3xl mx-auto space-y-6">
+
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-gray-800 pb-4">
         <h1 class="text-2xl font-bold">Dashboard</h1>
-        <button class="text-sm font-medium bg-gray-800 hover:bg-gray-700 hover:scale-105 transition-transform px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-950"
-                onclick="handleLogout()">
+        <button
+                class="text-sm font-medium bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-700 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-950"
+                onclick="handleLogout()"
+        >
             Logout
         </button>
     </div>
 
     <!-- Profile Card -->
     <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-center">
+
         <!-- Avatar -->
         <div class="flex-shrink-0">
-            <!-- Image avatar if available -->
-            <img alt="User Avatar"
-                 class="w-24 h-24 rounded-full border border-gray-700 object-cover"
-                 th:if="${avatarUrl}" th:src="${avatarUrl}"/>
+            <!-- Image avatar -->
+            <img
+                    alt="User Avatar"
+                    class="w-24 h-24 rounded-full border border-gray-700 object-cover"
+                    th:if="${avatarUrl}"
+                    th:src="${avatarUrl}"
+            />
 
-            <!-- Initials avatar fallback -->
-            <div class="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold border border-gray-700"
-                 th:if="${avatarUrl == null}"
-                 th:style="'background-color:#' + ${T(java.lang.Integer).toHexString(name.hashCode()).replace('-', '').substring(0, 6)}">
+            <!-- Initials fallback -->
+            <div
+                    class="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold border border-gray-700"
+                    th:if="${avatarUrl == null}"
+                    th:style="'background-color:#' + ${T(java.lang.Integer).toHexString(name.hashCode()).replace('-', '').substring(0, 6)}"
+            >
                 <span th:text="${#strings.arrayJoin(#strings.split(name, ' '), '').substring(0, 2).toUpperCase()}">U</span>
             </div>
         </div>
 
-        <!-- Info -->
+        <!-- User Info -->
         <div class="text-center sm:text-left flex-1">
             <h2 class="text-xl font-semibold mb-2">
                 Welcome back, <span th:text="${name}">User</span> 👋
             </h2>
             <div class="space-y-1 text-sm">
                 <p class="text-gray-400">
-                    <span class="font-medium">Email:</span> <span th:text="${email}">user@example.com</span>
+                    <span class="font-medium">Email:</span>
+                    <span th:text="${email}">user@example.com</span>
                 </p>
                 <p class="text-gray-500">
-                    <span class="font-medium">Created:</span> <span
-                        th:text="${#dates.format(createdAt, 'MMM dd, yyyy HH:mm')}">N/A</span>
+                    <span class="font-medium">Created:</span>
+                    <span th:text="${#dates.format(createdAt, 'MMM dd, yyyy HH:mm')}">N/A</span>
                 </p>
-                <p class="text-gray-500" th:unless="${lastLogin == null}">
-                    <span class="font-medium">Last Login:</span> <span
-                        th:text="${#dates.format(lastLogin, 'MMM dd, yyyy HH:mm')}">N/A</span>
+                <p class="text-gray-500" th:if="${lastLogin != null}">
+                    <span class="font-medium">Last Login:</span>
+                    <span th:text="${#dates.format(lastLogin, 'MMM dd, yyyy HH:mm')}">N/A</span>
                 </p>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Logout script -->
 <script>
     function handleLogout() {
-        if (confirm('Are you sure you want to logout?')) {
+        if (confirm('Are you sure you want to log out?')) {
             window.location.href = '/logout';
         }
     }

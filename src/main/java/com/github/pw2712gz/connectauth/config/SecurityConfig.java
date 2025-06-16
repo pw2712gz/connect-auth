@@ -2,6 +2,7 @@ package com.github.pw2712gz.connectauth.config;
 
 import com.github.pw2712gz.connectauth.security.CustomOAuth2UserService;
 import com.github.pw2712gz.connectauth.security.OAuth2LoginSuccessHandler;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -10,12 +11,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import jakarta.servlet.http.HttpServletResponse;
-
+/**
+ * Configures Spring Security for:
+ * - OAuth2 login with Google/GitHub
+ * - Public and protected path access
+ * - Graceful handling of 401/404 for unauthenticated users
+ */
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
 public class SecurityConfig {
+
+    private static final String[] PUBLIC_PATHS = {
+            "/", "/login",
+            "/main.css", "/css/**", "/js/**",
+            "/images/**", "/favicon.ico",
+            "/actuator/health"
+    };
 
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -25,12 +37,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/", "/login", "/logout-success",
-                                "/main.css", "/css/**", "/js/**",
-                                "/images/**", "/favicon.ico",
-                                "/actuator/health"
-                        ).permitAll()
+                        .requestMatchers(PUBLIC_PATHS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -45,7 +52,7 @@ public class SecurityConfig {
                         })
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/logout-success")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
                 .exceptionHandling(ex -> ex
@@ -54,11 +61,9 @@ public class SecurityConfig {
                             log.warn("⚠️ Unauthorized access to '{}'", path);
 
                             if (!path.equals("/dashboard") && !path.startsWith("/oauth2")) {
-                                // Likely a bad URL — send 404
                                 log.info("🛑 Unknown path '{}': sending 404", path);
                                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                             } else {
-                                // Valid protected route — redirect to log in
                                 response.sendRedirect("/login?unauthorized");
                             }
                         })
