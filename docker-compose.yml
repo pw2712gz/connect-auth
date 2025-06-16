@@ -13,7 +13,7 @@ services:
     volumes:
       - connect_mysql_data:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -21,6 +21,7 @@ services:
   connect-auth:
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: connect-auth
     depends_on:
       mysql:
