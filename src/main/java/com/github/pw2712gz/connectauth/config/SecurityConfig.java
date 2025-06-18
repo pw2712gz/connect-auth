@@ -26,7 +26,9 @@ public class SecurityConfig {
             "/", "/login",
             "/main.css", "/css/**", "/js/**",
             "/images/**", "/favicon.ico",
-            "/actuator/health"
+            "/actuator/health",
+            "/oauth2/**",
+            "/login/oauth2/**"
     };
 
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
@@ -60,7 +62,10 @@ public class SecurityConfig {
                             String path = request.getRequestURI();
                             log.warn("⚠️ Unauthorized access to '{}'", path);
 
-                            if (!path.equals("/dashboard") && !path.startsWith("/oauth2")) {
+                            // Let Spring Security handle known OAuth2 paths
+                            if (path.startsWith("/oauth2") || path.startsWith("/login/oauth2")) {
+                                response.sendRedirect("/login");
+                            } else if (!path.equals("/dashboard")) {
                                 log.info("🛑 Unknown path '{}': sending 404", path);
                                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                             } else {
