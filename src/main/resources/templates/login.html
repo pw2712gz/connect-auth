@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login | Connect Auth</title>
+
+    <link href="/style.css" rel="stylesheet"/>
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+</head>
+<body class="login-body">
+<div class="login-container">
+
+    <!-- Logo -->
+    <div class="logo-wrapper">
+        <img alt="Connect Auth Logo" class="logo" src="/favicon.ico"/>
+    </div>
+
+    <!-- Title -->
+    <div class="title-wrapper">
+        <h1>Welcome to Connect Auth</h1>
+        <p>Login securely using your Google or GitHub account</p>
+    </div>
+
+    <!-- Google Login -->
+    <a class="login-button google" href="/oauth2/authorization/google">
+        <img alt="Google" class="icon" src="https://www.svgrepo.com/show/475656/google-color.svg"/>
+        Continue with Google
+    </a>
+
+    <!-- GitHub Login -->
+    <a class="login-button github" href="/oauth2/authorization/github">
+        <img alt="GitHub" class="icon" src="https://www.svgrepo.com/show/512317/github-142.svg"/>
+        Continue with GitHub
+    </a>
+
+    <!-- Messages -->
+    <p class="msg logout" th:if="${param.logout}">You've been logged out.</p>
+    <p class="msg error" th:if="${param.error}">Login failed. Please try again.</p>
+    <p class="msg warn" th:if="${param.session}">Session expired. Please log in again.</p>
+    <p class="msg warn" th:if="${param.unauthorized}">You must log in to access that page.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dashboard | Connect Auth</title>
+    <link href="/style.css" rel="stylesheet"/>
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+</head>
+<body class="dashboard-body">
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <button class="logout-button" onclick="handleLogout()">Logout</button>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+
+        <!-- Avatar -->
+        <div class="avatar-container">
+            <!-- Image avatar -->
+            <img
+                    alt="User Avatar"
+                    class="avatar-img"
+                    th:if="${avatarUrl}"
+                    th:src="${avatarUrl}"
+            />
+
+            <!-- Initials fallback -->
+            <div
+                    class="avatar-fallback"
+                    th:if="${avatarUrl == null}"
+                    th:style="'background-color:#' + ${T(java.lang.Integer).toHexString(name.hashCode()).replace('-', '').substring(0, 6)}"
+            >
+                <span th:text="${#strings.arrayJoin(#strings.split(name, ' '), '').substring(0, 2).toUpperCase()}">U</span>
+            </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info">
+            <h2>
+                Welcome back, <span th:text="${name}">User</span> 👋
+            </h2>
+            <div class="user-meta">
+                <p>
+                    <strong>Email:</strong>
+                    <span th:text="${email}">user@example.com</span>
+                </p>
+                <p>
+                    <strong>Created:</strong>
+                    <span th:text="${#dates.format(createdAt, 'MMM dd, yyyy HH:mm')}">N/A</span>
+                </p>
+                <p th:if="${lastLogin != null}">
+                    <strong>Last Login:</strong>
+                    <span th:text="${#dates.format(lastLogin, 'MMM dd, yyyy HH:mm')}">N/A</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout script -->
+<script>
+    function handleLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = '/logout';
+        }
+    }
+</script>
+</body>
+</html>

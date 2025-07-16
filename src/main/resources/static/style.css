@@ -1,0 +1,291 @@
+/* === GLOBAL === */
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0f172a; /* dark background */
+    color: #f8fafc; /* light text */
+    line-height: 1.6; /* Added for better readability */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === LOGIN PAGE === */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.login-container {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* Enhanced shadow */
+}
+
+.logo-wrapper {
+    margin-bottom: 1rem;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+}
+
+.title-wrapper h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.title-wrapper p {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+/* === LOGIN BUTTONS === */
+.login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem; /* Slightly increased padding */
+    margin-top: 1rem;
+    font-weight: 600;
+    border: 1px solid #475569;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease; /* Changed to 'all' for smoother transitions */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    width: 100%; /* Full width for better mobile experience */
+    box-sizing: border-box;
+}
+
+.login-button img.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.login-button.google {
+    background-color: #e2e8f0;
+    color: #111827;
+}
+
+.login-button.google:hover {
+    background-color: #cbd5e1;
+}
+
+.login-button.github {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.login-button.github:hover {
+    background-color: #1f2937;
+}
+
+/* === MESSAGES === */
+.msg {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    padding: 0.75rem; /* Added padding for better visual separation */
+    border-radius: 0.5rem; /* Rounded corners */
+    border-left: 4px solid transparent; /* Accent border */
+}
+
+.msg.logout {
+    color: #10b981; /* green */
+    background-color: rgba(16, 185, 129, 0.1); /* Subtle background */
+    border-left-color: #10b981;
+}
+
+.msg.error {
+    color: #ef4444; /* red */
+    background-color: rgba(239, 68, 68, 0.1); /* Subtle background */
+    border-left-color: #ef4444;
+}
+
+.msg.warn {
+    color: #facc15; /* yellow */
+    background-color: rgba(250, 204, 21, 0.1); /* Subtle background */
+    border-left-color: #facc15;
+}
+
+/* === DASHBOARD PAGE === */
+.dashboard-body {
+    padding: 2.5rem 1rem;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #334155;
+}
+
+.logout-button {
+    background-color: #1e293b;
+    border: 1px solid #475569;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #f8fafc; /* Explicit light text color */
+    transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #334155;
+}
+
+/* === PROFILE CARD === */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Added subtle shadow */
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-img,
+.avatar-fallback {
+    width: 96px;
+    height: 96px;
+    border-radius: 9999px;
+    border: 2px solid #475569; /* Slightly thicker border */
+    object-fit: cover;
+    transition: border-color 0.2s ease; /* Added transition */
+}
+
+.avatar-img:hover,
+.avatar-fallback:hover {
+    border-color: #64748b; /* Subtle hover effect */
+}
+
+.avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #475569;
+    color: #f8fafc;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-info h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.user-meta p {
+    font-size: 0.875rem;
+    color: #cbd5e1;
+    margin: 0.25rem 0;
+}
+
+/* === ERROR PAGE === */
+.error-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.error-container {
+    max-width: 400px;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 3rem;
+    color: #ef4444;
+    margin-bottom: 1rem;
+}
+
+.error-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem; /* Increased padding for better touch targets */
+    background-color: #10b981;
+    border: 1px solid #059669;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s ease; /* Changed to 'all' */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow */
+}
+
+.back-button:hover {
+    background-color: #059669;
+}
+
+/* === RESPONSIVE IMPROVEMENTS === */
+@media (max-width: 640px) {
+    .login-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .profile-card {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .dashboard-body {
+        padding: 1rem;
+    }
+}
+
+/* === FOCUS STATES FOR ACCESSIBILITY === */
+.login-button:focus,
+.logout-button:focus,
+.back-button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* === SMOOTH SCROLLING === */
+html {
+    scroll-behavior: smooth;
+}
