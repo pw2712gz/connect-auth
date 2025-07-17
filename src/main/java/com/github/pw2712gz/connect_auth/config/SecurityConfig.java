@@ -3,8 +3,8 @@ package com.github.pw2712gz.connect_auth.config;
 import com.github.pw2712gz.connect_auth.security.CustomOAuth2UserService;
 import com.github.pw2712gz.connect_auth.security.OAuth2LoginSuccessHandler;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
  * - Graceful handling of 401 and 404 for unauthenticated requests
  */
 @Configuration
-@RequiredArgsConstructor
-@Slf4j
 public class SecurityConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     private static final String[] PUBLIC_PATHS = {
             "/", "/login",
@@ -33,6 +33,12 @@ public class SecurityConfig {
 
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final CustomOAuth2UserService customOAuth2UserService;
+
+    public SecurityConfig(OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler,
+                          CustomOAuth2UserService customOAuth2UserService) {
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
+        this.customOAuth2UserService = customOAuth2UserService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,7 +68,6 @@ public class SecurityConfig {
                             String path = request.getRequestURI();
                             log.warn("⚠️ Unauthorized access to '{}'", path);
 
-                            // Let Spring handle expected OAuth2 routes
                             if (path.startsWith("/oauth2") || path.startsWith("/login/oauth2")) {
                                 response.sendRedirect("/login");
                             } else if (!path.equals("/dashboard")) {

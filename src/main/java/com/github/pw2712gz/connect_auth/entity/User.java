@@ -1,8 +1,6 @@
 package com.github.pw2712gz.connect_auth.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.Instant;
 
 /**
@@ -11,11 +9,6 @@ import java.time.Instant;
  */
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -29,15 +22,26 @@ public class User {
     private String lastName;
     private String avatarUrl;
 
-    /**
-     * Whether the user is active in the system.
-     * Currently always true after OAuth2 login.
-     */
     private boolean enabled;
 
     private Instant createdAt;
     private Instant updatedAt;
     private Instant lastLogin;
+
+    public User() {}
+
+    public User(Long id, String email, String firstName, String lastName, String avatarUrl,
+                boolean enabled, Instant createdAt, Instant updatedAt, Instant lastLogin) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatarUrl = avatarUrl;
+        this.enabled = enabled;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.lastLogin = lastLogin;
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -50,4 +54,33 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
+    // === Getters and Setters ===
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+
+    public Instant getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
+
+    public Instant getLastLogin() { return lastLogin; }
+    public void setLastLogin(Instant lastLogin) { this.lastLogin = lastLogin; }
 }

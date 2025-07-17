@@ -4,8 +4,8 @@ import com.github.pw2712gz.connect_auth.entity.User;
 import com.github.pw2712gz.connect_auth.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -22,11 +22,15 @@ import java.util.Map;
  * and redirects to the dashboard.
  */
 @Component
-@RequiredArgsConstructor
-@Slf4j
 public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(OAuth2LoginSuccessHandler.class);
+
     private final UserRepository userRepository;
+
+    public OAuth2LoginSuccessHandler(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -78,16 +82,17 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                     existing.setLastLogin(Instant.now());
                     return existing;
                 })
-                .orElseGet(() -> User.builder()
-                        .email(email)
-                        .firstName(firstName)
-                        .lastName(lastName)
-                        .avatarUrl(picture)
-                        .enabled(true)
-                        .createdAt(Instant.now())
-                        .lastLogin(Instant.now())
-                        .build()
-                );
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    newUser.setFirstName(firstName);
+                    newUser.setLastName(lastName);
+                    newUser.setAvatarUrl(picture);
+                    newUser.setEnabled(true);
+                    newUser.setCreatedAt(Instant.now());
+                    newUser.setLastLogin(Instant.now());
+                    return newUser;
+                });
 
         userRepository.save(user);
 
