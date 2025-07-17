@@ -42,9 +42,9 @@ docker run -p 8080:8080 --env-file .env connect-auth
 
 ## Screenshots
 
-<img width="1512" alt="Screenshot 2025-06-15 at 8 43 24 AM" src="https://github.com/user-attachments/assets/d63f6a98-a23c-4d8f-b18c-11a03d7fc783" />
+<img width="2474" height="1414" alt="home" src="https://github.com/user-attachments/assets/60a7e8a1-5b61-457b-881c-f89b8675d00e" />
 
-<img width="1512" alt="Screenshot 2025-06-15 at 8 43 35 AM" src="https://github.com/user-attachments/assets/52a4352d-4077-4829-9f52-c4bbd4bc16eb" />
+<img width="2474" height="1414" alt="dashboard" src="https://github.com/user-attachments/assets/6c969ecf-f8f9-4ded-b5b5-ff32edfa5a75" />
 
 ---
 
